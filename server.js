@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 const BOT_TOKEN = "8413348505:AAFYuQ079R0sXdfyxSC87yYWSRtgslPGmhI";
 const ADMIN_ID = "2013703324";
 
+// Главная
 app.get("/", (req, res) => {
   res.send("QadamCoin server is running!");
 });
@@ -20,7 +21,11 @@ app.post("/withdraw", async (req, res) => {
     return res.status(400).send({ error: "Missing fields" });
   }
 
-  const message = 🔔 *Запрос на вывод монет*\n\n👤 ID пользователя: ${userId}\n💰 Сумма: *${amount} монет*;
+  // 💥 ВАЖНО — без шаблонных строк с эмодзи!
+  const message =
+    "⚠️ Запрос на вывод монет\n\n" +
+    "ID пользователя: " + userId + "\n" +
+    "Сумма: " + amount + " монет";
 
   await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
     method: "POST",
@@ -35,7 +40,7 @@ app.post("/withdraw", async (req, res) => {
   res.send({ success: true });
 });
 
-// Старт
+// Запуск
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Server started on port " + PORT);
